@@ -118,15 +118,16 @@ credits already), not an amount you receive.
 
 | Start-tier requirement | Status |
 |---|---|
-| Publicly available company website | ⏳ Ready in this repo; live after steps 1–3 |
-| Apply with a company email on the website's domain | ⏳ `shevaan@softcontourlab.me` after step 6 |
-| Google Cloud billing account ID (18 characters) | ❓ Create one under the shevaan@ Google account |
-| Founded within the last 24 months | ❓ Decide and record a founding date |
-| No Google Cloud credits beyond the free trial | ❓ Check honestly for the company's account |
-| Digital-native tech startup with a **working MVP** | ❌ The site's viewer is a concept. Build the MVP first |
-| **Clear business model** | ✅ Per-scan pricing is on the home page (`#pricing`) |
+| Publicly available company website | ✅ Live at https://softcontourlab.me (HTTPS) |
+| Apply with a company email on the website's domain | ✅ `shevaan@softcontourlab.me` forwards to Gmail (MX accepts it with 250 OK; unknown aliases are rejected) |
+| Google account for that email | ⏳ **Founder action:** create a Google account using the existing address shevaan@softcontourlab.me (the verification code arrives via the forwarder) |
+| Google Cloud billing account ID (18 characters) | ⏳ **Founder action:** create a *new* billing account under that Google account. Don't reuse an existing billing account that has had credits |
+| Founded within the last 24 months | ✅ Founded August 2026 |
+| No Google Cloud credits beyond the free trial | ✅ True for a new company account and a fresh billing account |
+| Digital-native tech startup with a **working MVP** | ✅ Live demo on real CT: https://softcontourlab.me/demo.html |
+| **Clear business model** | ✅ Per-scan pricing on the home page (`#pricing`) |
 | Plans to seek venture funding | Application answer |
-| Not an educational institution, agency or consultancy | Apply as the startup |
+| Not an educational institution, agency or consultancy | ✅ Site presents a startup |
 
 `privacy.html` and `terms.html` are plain-English starting points, not legal advice. Have them
 reviewed once the company is incorporated or starts handling user data.
