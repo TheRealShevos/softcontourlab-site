@@ -128,9 +128,5 @@ credits already), not an amount you receive.
 | Plans to seek venture funding | Application answer |
 | Not an educational institution, agency or consultancy | Apply as the startup |
 
-**Before charging per scan:** the main training/evaluation dataset (PanTS) is licensed non-commercial
-(CC BY-NC; its SA vs ND terms contradict each other). A paid product built on it, or a public demo
-showing its scans, needs the dataset authors' permission or commercially licensed data.
-
 `privacy.html` and `terms.html` are plain-English starting points, not legal advice. Have them
 reviewed once the company is incorporated or starts handling user data.

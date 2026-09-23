@@ -36,7 +36,7 @@ change one, change all four (plus `404.html`).
 ## Content rules (non-negotiable)
 
 - **No invented metrics.** Every number must trace to the table below.
-- **R-Super is prior work.** Never present its results as ours.
+- **Third-party models and prior work are not ours.** Never present their results as Soft Contour results.
 - **No clinical claims.** The product is delineation support, not diagnosis.
 - **No company claims** (Pty Ltd, ABN, etc.) unless real registration details exist.
 - The hero viewer is labelled synthetic and illustrative. Keep it that way.

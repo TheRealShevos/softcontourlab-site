@@ -33,6 +33,7 @@
     <nav aria-label="Primary">
       <ul class="nav-links" id="nav-links">
         <li><a href="./#product" data-page="product">Product</a></li>
+        <li><a href="demo.html" data-page="demo">Demo</a></li>
         <li><a href="./#pricing" data-page="pricing">Pricing</a></li>
         <li><a href="research.html" data-page="research">Research</a></li>
         <li><a href="team.html" data-page="team">Team</a></li>
@@ -56,8 +57,8 @@
         <h1 class="display rise r2">Tumour edges, drawn the way they <em>actually&nbsp;are.</em></h1>
         <p class="lede rise r3">We're building toward a viewer for radiologists: upload an abdominal CT and see the pancreatic tumour highlighted with a soft, shape-faithful contour, and an honest band where the edge is uncertain. We're in research preview, and we publish our evidence as we go.</p>
         <div class="hero-actions rise r4">
-          <a class="btn btn-primary" href="research.html">See the evidence <span class="arrow" aria-hidden="true">→</span></a>
-          <a class="btn" href="#product">How it will work</a>
+          <a class="btn btn-primary" href="demo.html">Try the live demo <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn" href="research.html">See the evidence</a>
         </div>
         <p class="hero-note rise r4">Research preview · not for clinical use</p>
       </div>
@@ -114,16 +115,16 @@
                 <div class="legend">
                   <div><span class="sw core"></span>Most likely edge</div>
                   <div><span class="sw band"></span>Uncertain boundary band</div>
-                  <div><span class="sw sphere"></span>Ball-shaped target</div>
+                  <div><span class="sw sphere"></span>Simple-shape approximation</div>
                 </div>
               </div>
               <p class="explain" data-explain="soft"><b>Soft contour.</b> The solid line is the most likely edge. The fading band marks where the boundary is uncertain: the part a radiologist should check.</p>
-              <p class="explain" data-explain="sphere" hidden><b>Hard sphere.</b> Report-supervised training turns a reported tumour size into a ball-shaped target. That helps with <i>finding</i> tumours but can't follow an infiltrative edge. The dotted line is the true outline.</p>
+              <p class="explain" data-explain="sphere" hidden><b>Hard sphere.</b> Conventional pipelines approximate a tumour with a simple shape. That helps with <i>finding</i> it but can't follow an infiltrative edge. The dotted line is the true outline.</p>
             </aside>
           </div>
         </div>
       </div>
-      <p class="hero-note" style="text-align:center">Concept interface. The slice is procedurally drawn and the contour is illustrative. Neither is model output.</p>
+      <p class="hero-note" style="text-align:center">Illustration with a synthetic slice. <a class="link" href="demo.html">See it on real CT in the live demo →</a></p>
     </div>
   </section>
 
@@ -146,13 +147,13 @@
           <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></div>
           <span class="tag plan">Planned</span>
           <h3 class="h3">Upload a CT</h3>
-          <p>Drop in an abdominal CT series. The model needs the CT alone. Radiology reports help only during training, so none is needed at the point of use.</p>
+          <p>Drop in an abdominal CT series. The model needs the CT alone: no report, no manual markup.</p>
         </article>
         <article class="card hover reveal d1">
           <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4.8 0 8.5 3.2 8.2 8-.2 3-2 3.9-1.7 6.4.3 2.6-2.9 4.5-6.3 3.8C8 20.6 3.6 19.3 3.3 14.5 2.9 9.6 6.4 3.3 12 3Z"/></svg></div>
           <span class="tag open">In research</span>
           <h3 class="h3">Delineate the tumour</h3>
-          <p>A segmentation model trained with report-, morphology- and anatomy-aware supervision traces the lesion, including where it extends past the pancreas.</p>
+          <p>Our model traces the lesion, including where it extends past the pancreas.</p>
         </article>
         <article class="card hover reveal d2">
           <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"/></svg></div>
@@ -199,15 +200,15 @@
         <p class="eyebrow">Why the edge</p>
         <h2 class="h2 mt-s">Finding a tumour isn't the same as <em>outlining</em> it.</h2>
         <div class="lede mt-m stack">
-          <p>Pancreatic cancer is infiltrative: it wraps vessels and often extends past the gland. Expert hand-drawn outlines exist for only a few thousand public scans, while hospitals hold far more CTs paired with written reports.</p>
-          <p>Methods that learn from reports turn a reported size into a ball-shaped target, which works for <i>finding</i> tumours. They then cut away anything predicted outside the pancreas, which removes real tumour at exactly the edge that matters.</p>
+          <p>Pancreatic cancer is infiltrative: it wraps vessels and often extends past the gland. A useful outline has to show where it really ends.</p>
+          <p>Most pipelines approximate the tumour's shape, which works for <i>finding</i> it. Then they cut away anything outside the pancreas, which removes real tumour at exactly the edge that matters.</p>
         </div>
         <a class="btn mt-m" href="research.html">Read the method <span class="arrow" aria-hidden="true">→</span></a>
       </div>
 
       <div class="compare">
         <figure class="card reveal">
-          <svg viewBox="0 0 400 260" role="img" aria-label="Diagram: a ball-shaped target and a hard organ cut miss the tumour's extension">
+          <svg viewBox="0 0 400 260" role="img" aria-label="Diagram: a rigid shape and a hard organ cut miss the tumour's extension">
             <defs>
               <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#ff7a4d" stroke-width="1.4" opacity=".7"/></pattern>
               <clipPath id="outside"><path d="M0 0H400V260H0Z M70 150c40-40 110-58 170-52 50 5 90 18 110 34-20 26-70 40-130 44-60 4-120-2-150-26Z" clip-rule="evenodd"/></clipPath>
@@ -220,9 +221,9 @@
             <text x="20" y="240" fill="#ffb38a" font-family="Geist Mono, monospace" font-size="11">▨ removed by the hard organ cut</text>
           </svg>
           <figcaption>
-            <span class="tag">Baseline behaviour</span>
-            <h3 class="h3">Ball target + hard cut</h3>
-            <p>The target ignores the tumour's real shape, and tissue outside the organ mask is deleted.</p>
+            <span class="tag">Conventional</span>
+            <h3 class="h3">Rigid shape + hard cut</h3>
+            <p>The outline ignores the tumour's real shape, and tissue outside the organ is deleted.</p>
           </figcaption>
         </figure>
 
@@ -238,13 +239,13 @@
               <path d="M180 108c22-8 50 0 54 22 3 14-4 20 8 30 14 12 30 20 26 34-3 10-20 10-34 2-12-7-22-6-36-4-22 3-36-10-36-30 0-22 4-46 18-54Z" stroke-width="4" opacity=".5" filter="url(#glow)"/>
               <path d="M180 108c22-8 50 0 54 22 3 14-4 20 8 30 14 12 30 20 26 34-3 10-20 10-34 2-12-7-22-6-36-4-22 3-36-10-36-30 0-22 4-46 18-54Z" stroke-width="1.8" fill="rgba(255,122,77,.22)"/>
             </g>
-            <text x="20" y="32" fill="#9aa3b2" font-family="Geist Mono, monospace" font-size="11">SOFT ANATOMICAL PRIOR (DASHED)</text>
+            <text x="20" y="32" fill="#9aa3b2" font-family="Geist Mono, monospace" font-size="11">ORGAN GUIDANCE (DASHED)</text>
             <text x="20" y="240" fill="#ffb38a" font-family="Geist Mono, monospace" font-size="11">— edge  ░ graded uncertainty band</text>
           </svg>
           <figcaption>
-            <span class="tag open">What we're testing</span>
-            <h3 class="h3">Soft contour + soft boundary</h3>
-            <p>Supervision that follows the reported margin, and an anatomical prior that guides the model instead of amputating tumour.</p>
+            <span class="tag open">Soft Contour</span>
+            <h3 class="h3">Real edge + honest band</h3>
+            <p>A contour that follows the tumour's real edge, with anatomy guiding the model instead of amputating tumour.</p>
           </figcaption>
         </figure>
       </div>
@@ -265,17 +266,17 @@
         <article class="card stat reveal">
           <div class="big">7<small>of 8</small></div>
           <p class="cap">development cases with tumour had reference tumour outside the supplied pancreas mask: 74% of reference volume. A hard organ cut would delete it.</p>
-          <p class="src">Task 4 · E01 · 16 native development cases · saved outputs, no retraining</p>
+          <p class="src">Internal study · 16 development cases</p>
         </article>
         <article class="card stat reveal d1">
           <div class="big contour">14.6<small>%</small></div>
-          <p class="cap">of all reference tumour voxels fall outside the anatomy search region (expert anatomy, 26 of 143 cases). With predicted anatomy: 3.92%, 17 cases.</p>
-          <p class="src">Task 4 · S1 · 143 training cases · unchanged baseline dilation, 1 mm crops</p>
+          <p class="cap">of expert-labelled tumour can fall outside the region a standard pipeline lets the model search (26 of 143 cases).</p>
+          <p class="src">Internal study · 143 training cases</p>
         </article>
         <article class="card stat reveal d2">
           <div class="big">−0.0007</div>
-          <p class="cap">mean Dice change from simply softening the search region by 5 mm. That's far short of the +0.020 we pre-registered, so we're reporting it as a null.</p>
-          <p class="src">Task 4 · S2 · 143 exposed cases · target diagnostic, no training</p>
+          <p class="cap">change in overlap from simply widening the search. That's far short of the gain we set in advance, so the fix has to be smarter.</p>
+          <p class="src">Internal study · 143 cases</p>
         </article>
       </div>
       <div class="note mt-m reveal">
@@ -318,8 +319,8 @@
         <a class="btn mt-m" href="team.html">Meet the team <span class="arrow" aria-hidden="true">→</span></a>
       </div>
       <div class="grid g4 reveal" aria-hidden="true" style="gap:14px;justify-items:center">
-        <div class="avatar">SJ</div><div class="avatar">NT</div><div class="avatar">MB</div><div class="avatar">NS</div>
-        <div class="avatar">JH</div><div class="avatar">PB</div><div class="avatar">JM</div><div class="avatar">BM</div>
+        <div class="avatar">SJ<img src="assets/team/sj.jpg" alt="" width="400" height="400" loading="lazy"></div><div class="avatar">NT<img src="assets/team/nt.jpg" alt="" width="400" height="400" loading="lazy"></div><div class="avatar">MB<img src="assets/team/mb.jpg" alt="" width="400" height="400" loading="lazy"></div><div class="avatar">NS<img src="assets/team/ns.jpg" alt="" width="400" height="400" loading="lazy"></div>
+        <div class="avatar">JH<img src="assets/team/jh.jpg" alt="" width="400" height="400" loading="lazy"></div><div class="avatar">PB<img src="assets/team/pb.jpg" alt="" width="400" height="400" loading="lazy"></div><div class="avatar">JM<img src="assets/team/jm.jpg" alt="" width="400" height="400" loading="lazy"></div><div class="avatar">BM<img src="assets/team/bm.jpg" alt="" width="400" height="400" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -353,7 +354,7 @@
       </div>
       <div>
         <h4>Explore</h4>
-        <ul><li><a href="./#product">Product</a></li><li><a href="./#pricing">Pricing</a></li><li><a href="research.html">Research</a></li></ul>
+        <ul><li><a href="./#product">Product</a></li><li><a href="demo.html">Live demo</a></li><li><a href="./#pricing">Pricing</a></li><li><a href="research.html">Research</a></li></ul>
       </div>
       <div>
         <h4>Lab</h4>

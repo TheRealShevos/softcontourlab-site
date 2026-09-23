@@ -1,6 +1,6 @@
 // Concept viewer for the home page.
 // Draws a SYNTHETIC axial abdominal slice (procedural shapes + noise, no patient data),
-// then overlays either a hard sphere (the baseline's pseudo-label shape) or a soft contour
+// then overlays either a hard sphere (a conventional simple-shape approximation) or a soft contour
 // with a graded confidence band — the idea Soft Contour Lab is researching.
 (function () {
   var canvas = document.getElementById("ct");
@@ -211,7 +211,7 @@
       mode = b.getAttribute("data-mode");
       buttons.forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
       explain.forEach(function (e) { e.hidden = e.getAttribute("data-explain") !== mode; });
-      if (modeLabel) modeLabel.textContent = mode === "soft" ? "Soft contour · graded band" : "Hard sphere · pseudo-label shape";
+      if (modeLabel) modeLabel.textContent = mode === "soft" ? "Soft contour · graded band" : "Hard sphere · simple shape";
       t0 = performance.now() - 1250; // skip the scan sweep on toggles
       if (reduce) draw(0);
     });
