@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://softcontourlab.me/sitemap.xml

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="t">
+  <title id="t">Soft Contour Lab</title>
+  <defs>
+    <linearGradient id="g" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFB38A"/>
+      <stop offset="1" stop-color="#FF6A3D"/>
+    </linearGradient>
+    <!-- One irregular lesion outline, reused at three widths: the graded "soft" boundary. -->
+    <path id="c" d="M33 11.5c10.6-.6 19 6.8 18.4 17.2-.4 6.6-4.6 8.6-3.8 14.4.8 6-6.4 10.2-14.2 8.6C24.6 50 14.4 47 13.6 36.2 12.8 25.6 20.4 12.2 33 11.5Z"/>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="#0B0F16"/>
+  <use href="#c" fill="none" stroke="url(#g)" stroke-width="11" stroke-opacity=".16" stroke-linejoin="round"/>
+  <use href="#c" fill="none" stroke="url(#g)" stroke-width="6" stroke-opacity=".34" stroke-linejoin="round"/>
+  <use href="#c" fill="url(#g)" fill-opacity=".14" stroke="url(#g)" stroke-width="2.6" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en-AU" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Soft Contour Lab — Tumour edges, drawn the way they are</title>
+  <meta name="description" content="Soft Contour Lab is building a radiologist-facing tool: upload a CT, see the pancreatic tumour highlighted with a soft, shape-faithful contour.">
+  <link rel="canonical" href="https://softcontourlab.me/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Soft Contour Lab">
+  <meta property="og:title" content="Soft Contour Lab — Tumour edges, drawn the way they are">
+  <meta property="og:description" content="Shape-faithful pancreatic tumour delineation on CT. Evidence published, including what didn't work.">
+  <meta property="og:url" content="https://softcontourlab.me/">
+  <meta property="og:image" content="https://softcontourlab.me/assets/brand/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#07090d">
+  <link rel="icon" href="assets/brand/mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body data-page="home">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="./" aria-label="Soft Contour Lab home">
+      <img src="assets/brand/mark.svg" alt="" width="28" height="28">
+      <span class="brand-name">Soft Contour <i>Lab</i></span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="./#product" data-page="product">Product</a></li>
+        <li><a href="./#pricing" data-page="pricing">Pricing</a></li>
+        <li><a href="research.html" data-page="research">Research</a></li>
+        <li><a href="team.html" data-page="team">Team</a></li>
+        <li><a href="contact.html" data-page="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-sm" href="contact.html">Get in touch</a>
+      <button class="nav-toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ───────── Hero ───────── -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow rise r1">Research preview · Built in Sydney</p>
+        <h1 class="display rise r2">Tumour edges, drawn the way they <em>actually&nbsp;are.</em></h1>
+        <p class="lede rise r3">We're building toward a viewer for radiologists: upload an abdominal CT and see the pancreatic tumour highlighted with a soft, shape-faithful contour, and an honest band where the edge is uncertain. We're in research preview, and we publish our evidence as we go.</p>
+        <div class="hero-actions rise r4">
+          <a class="btn btn-primary" href="research.html">See the evidence <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn" href="#product">How it will work</a>
+        </div>
+        <p class="hero-note rise r4">Research preview · not for clinical use</p>
+      </div>
+    </div>
+
+    <div class="hero-stage wrap rise r5">
+      <div class="viewer" role="group" aria-label="Concept viewer: synthetic CT slice with tumour contour overlay">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="viewer-inner">
+          <div class="viewer-bar">
+            <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="viewer-title"><b>Soft Contour</b><span class="opt"> · Viewer concept</span></div>
+            <div class="viewer-badge">Concept</div>
+          </div>
+          <div class="viewer-body">
+            <aside class="viewer-side left" aria-hidden="true">
+              <div>
+                <div class="side-label">Study</div>
+                <div class="upload">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                  Drop CT series<br><span class="dim">DICOM or NIfTI</span>
+                </div>
+              </div>
+              <div class="file"><span class="pip"></span><span>abdomen_ct_series</span></div>
+              <div>
+                <div class="side-label">Pipeline</div>
+                <ol class="steps-mini">
+                  <li>Load volume</li>
+                  <li>Locate pancreas</li>
+                  <li>Delineate lesion</li>
+                  <li>Grade the boundary</li>
+                </ol>
+              </div>
+            </aside>
+
+            <div class="viewer-canvas">
+              <canvas id="ct" width="560" height="560" aria-label="Synthetic axial abdominal CT slice with an animated tumour contour"></canvas>
+              <div class="hud tl">AXIAL<br>ABDOMEN WINDOW</div>
+              <div class="hud tr"><span class="warn">SYNTHETIC RENDER</span><br>NOT PATIENT DATA</div>
+              <div class="hud bl" id="hud-mode">Soft contour · graded band</div>
+              <div class="hud br">CT-only inference</div>
+            </div>
+
+            <aside class="viewer-side right">
+              <div>
+                <div class="side-label">Overlay</div>
+                <div class="seg" role="group" aria-label="Overlay type">
+                  <button type="button" data-mode="soft" aria-pressed="true">Soft contour</button>
+                  <button type="button" data-mode="sphere" aria-pressed="false">Hard sphere</button>
+                </div>
+              </div>
+              <div>
+                <div class="side-label">Legend</div>
+                <div class="legend">
+                  <div><span class="sw core"></span>Most likely edge</div>
+                  <div><span class="sw band"></span>Uncertain boundary band</div>
+                  <div><span class="sw sphere"></span>Ball-shaped target</div>
+                </div>
+              </div>
+              <p class="explain" data-explain="soft"><b>Soft contour.</b> The solid line is the most likely edge. The fading band marks where the boundary is uncertain: the part a radiologist should check.</p>
+              <p class="explain" data-explain="sphere" hidden><b>Hard sphere.</b> Report-supervised training turns a reported tumour size into a ball-shaped target. That helps with <i>finding</i> tumours but can't follow an infiltrative edge. The dotted line is the true outline.</p>
+            </aside>
+          </div>
+        </div>
+      </div>
+      <p class="hero-note" style="text-align:center">Concept interface. The slice is procedurally drawn and the contour is illustrative. Neither is model output.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="strip" aria-label="Project facts">
+      <span>Pancreatic CT</span><span>CT-only inference</span><span>Soft boundaries</span><span>Evidence-first</span><span>Built in Sydney</span>
+    </div>
+  </div>
+
+  <!-- ───────── Product ───────── -->
+  <section class="section" id="product">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The product we're building</p>
+        <h2 class="h2">From scan to contour, <em>in three steps.</em></h2>
+        <p class="lede">The workflow we're designing toward. Each step maps to a piece of research that is under way; none of it is a finished clinical product.</p>
+      </div>
+      <div class="grid g3 flow">
+        <article class="card hover reveal">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></div>
+          <span class="tag plan">Planned</span>
+          <h3 class="h3">Upload a CT</h3>
+          <p>Drop in an abdominal CT series. The model needs the CT alone. Radiology reports help only during training, so none is needed at the point of use.</p>
+        </article>
+        <article class="card hover reveal d1">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4.8 0 8.5 3.2 8.2 8-.2 3-2 3.9-1.7 6.4.3 2.6-2.9 4.5-6.3 3.8C8 20.6 3.6 19.3 3.3 14.5 2.9 9.6 6.4 3.3 12 3Z"/></svg></div>
+          <span class="tag open">In research</span>
+          <h3 class="h3">Delineate the tumour</h3>
+          <p>A segmentation model trained with report-, morphology- and anatomy-aware supervision traces the lesion, including where it extends past the pancreas.</p>
+        </article>
+        <article class="card hover reveal d2">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"/></svg></div>
+          <span class="tag plan">Planned</span>
+          <h3 class="h3">Review the edge</h3>
+          <p>See the most likely boundary, plus a graded band where it's uncertain. It supports the radiologist's delineation. It is not a diagnosis, and the radiologist stays in charge.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ───────── Pricing ───────── -->
+  <section class="section" id="pricing">
+    <div class="wrap split" style="align-items:center">
+      <div>
+        <p class="eyebrow">Pricing</p>
+        <h2 class="h2 mt-s">Pay per scan. <em>Nothing else.</em></h2>
+        <p class="lede mt-s">No seats, no licence fees, no minimums. A radiology team pays for the scans it contours, and nothing when it doesn't.</p>
+        <div class="hero-actions" style="justify-content:flex-start"><a class="btn btn-contour" href="contact.html">Become a pilot partner <span class="arrow" aria-hidden="true">→</span></a></div>
+      </div>
+      <div class="card price reveal">
+        <span class="tag plan">At launch</span>
+        <div class="price-big">Per scan</div>
+        <p class="muted">One CT in, one tumour contour and uncertainty band out.</p>
+        <ul class="checks mt-m">
+          <li><div><b>Upload a CT</b> and get the highlighted tumour back</div></li>
+          <li><div><b>Pay only for scans processed</b>: no subscription</div></li>
+          <li><div><b>Built for radiologists</b> reading abdominal CT, starting with pancreatic cancer</div></li>
+          <li><div><b>Pilot pricing</b> for early partner teams</div></li>
+        </ul>
+        <p class="bar-note mt-m">Research preview · not yet available for clinical use</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ───────── Problem ───────── -->
+  <section class="section">
+    <div class="wrap split">
+      <div class="sticky">
+        <p class="eyebrow">Why the edge</p>
+        <h2 class="h2 mt-s">Finding a tumour isn't the same as <em>outlining</em> it.</h2>
+        <div class="lede mt-m stack">
+          <p>Pancreatic cancer is infiltrative: it wraps vessels and often extends past the gland. Expert hand-drawn outlines exist for only a few thousand public scans, while hospitals hold far more CTs paired with written reports.</p>
+          <p>Methods that learn from reports turn a reported size into a ball-shaped target, which works for <i>finding</i> tumours. They then cut away anything predicted outside the pancreas, which removes real tumour at exactly the edge that matters.</p>
+        </div>
+        <a class="btn mt-m" href="research.html">Read the method <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="compare">
+        <figure class="card reveal">
+          <svg viewBox="0 0 400 260" role="img" aria-label="Diagram: a ball-shaped target and a hard organ cut miss the tumour's extension">
+            <defs>
+              <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#ff7a4d" stroke-width="1.4" opacity=".7"/></pattern>
+              <clipPath id="outside"><path d="M0 0H400V260H0Z M70 150c40-40 110-58 170-52 50 5 90 18 110 34-20 26-70 40-130 44-60 4-120-2-150-26Z" clip-rule="evenodd"/></clipPath>
+            </defs>
+            <path d="M70 150c40-40 110-58 170-52 50 5 90 18 110 34-20 26-70 40-130 44-60 4-120-2-150-26Z" fill="#2a2f38" stroke="#4a5160" stroke-width="1.2"/>
+            <path id="les1" d="M180 108c22-8 50 0 54 22 3 14-4 20 8 30 14 12 30 20 26 34-3 10-20 10-34 2-12-7-22-6-36-4-22 3-36-10-36-30 0-22 4-46 18-54Z" fill="#6c7280" opacity=".55"/>
+            <path d="M180 108c22-8 50 0 54 22 3 14-4 20 8 30 14 12 30 20 26 34-3 10-20 10-34 2-12-7-22-6-36-4-22 3-36-10-36-30 0-22 4-46 18-54Z" fill="url(#hatch)" clip-path="url(#outside)"/>
+            <circle cx="205" cy="146" r="38" fill="rgba(143,179,255,.14)" stroke="#8fb3ff" stroke-width="1.6" stroke-dasharray="5 4"/>
+            <text x="20" y="32" fill="#9aa3b2" font-family="Geist Mono, monospace" font-size="11">PANCREAS (GREY) · TUMOUR (LIGHT)</text>
+            <text x="20" y="240" fill="#ffb38a" font-family="Geist Mono, monospace" font-size="11">▨ removed by the hard organ cut</text>
+          </svg>
+          <figcaption>
+            <span class="tag">Baseline behaviour</span>
+            <h3 class="h3">Ball target + hard cut</h3>
+            <p>The target ignores the tumour's real shape, and tissue outside the organ mask is deleted.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="card reveal d1">
+          <svg viewBox="0 0 400 260" role="img" aria-label="Diagram: a soft contour follows the tumour, with a graded band across the organ boundary">
+            <defs>
+              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3"/></filter>
+            </defs>
+            <path d="M70 150c40-40 110-58 170-52 50 5 90 18 110 34-20 26-70 40-130 44-60 4-120-2-150-26Z" fill="#2a2f38" stroke="#4a5160" stroke-width="1.2" stroke-dasharray="3 3"/>
+            <g fill="none" stroke="#ff7a4d" stroke-linejoin="round">
+              <path d="M180 108c22-8 50 0 54 22 3 14-4 20 8 30 14 12 30 20 26 34-3 10-20 10-34 2-12-7-22-6-36-4-22 3-36-10-36-30 0-22 4-46 18-54Z" stroke-width="22" opacity=".1"/>
+              <path d="M180 108c22-8 50 0 54 22 3 14-4 20 8 30 14 12 30 20 26 34-3 10-20 10-34 2-12-7-22-6-36-4-22 3-36-10-36-30 0-22 4-46 18-54Z" stroke-width="11" opacity=".2"/>
+              <path d="M180 108c22-8 50 0 54 22 3 14-4 20 8 30 14 12 30 20 26 34-3 10-20 10-34 2-12-7-22-6-36-4-22 3-36-10-36-30 0-22 4-46 18-54Z" stroke-width="4" opacity=".5" filter="url(#glow)"/>
+              <path d="M180 108c22-8 50 0 54 22 3 14-4 20 8 30 14 12 30 20 26 34-3 10-20 10-34 2-12-7-22-6-36-4-22 3-36-10-36-30 0-22 4-46 18-54Z" stroke-width="1.8" fill="rgba(255,122,77,.22)"/>
+            </g>
+            <text x="20" y="32" fill="#9aa3b2" font-family="Geist Mono, monospace" font-size="11">SOFT ANATOMICAL PRIOR (DASHED)</text>
+            <text x="20" y="240" fill="#ffb38a" font-family="Geist Mono, monospace" font-size="11">— edge  ░ graded uncertainty band</text>
+          </svg>
+          <figcaption>
+            <span class="tag open">What we're testing</span>
+            <h3 class="h3">Soft contour + soft boundary</h3>
+            <p>Supervision that follows the reported margin, and an anatomical prior that guides the model instead of amputating tumour.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ───────── Evidence ───────── -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Evidence so far</p>
+        <h2 class="h2">Measured, cited, <em>including the nulls.</em></h2>
+        <p class="lede">Every number below comes from our own experiments, labelled with the study and cohort it came from. We don't have clinical accuracy figures yet, and we won't invent them.</p>
+      </div>
+      <div class="grid g3">
+        <article class="card stat reveal">
+          <div class="big">7<small>of 8</small></div>
+          <p class="cap">development cases with tumour had reference tumour outside the supplied pancreas mask: 74% of reference volume. A hard organ cut would delete it.</p>
+          <p class="src">Task 4 · E01 · 16 native development cases · saved outputs, no retraining</p>
+        </article>
+        <article class="card stat reveal d1">
+          <div class="big contour">14.6<small>%</small></div>
+          <p class="cap">of all reference tumour voxels fall outside the anatomy search region (expert anatomy, 26 of 143 cases). With predicted anatomy: 3.92%, 17 cases.</p>
+          <p class="src">Task 4 · S1 · 143 training cases · unchanged baseline dilation, 1 mm crops</p>
+        </article>
+        <article class="card stat reveal d2">
+          <div class="big">−0.0007</div>
+          <p class="cap">mean Dice change from simply softening the search region by 5 mm. That's far short of the +0.020 we pre-registered, so we're reporting it as a null.</p>
+          <p class="src">Task 4 · S2 · 143 exposed cases · target diagnostic, no training</p>
+        </article>
+      </div>
+      <div class="note mt-m reveal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+        <div><b>How to read these.</b> They describe the problem on development cases the team has already seen. They are not held-out performance, and they are not a claim that our method beats anything yet. The <a class="link" href="research.html">research page</a> has the figures, caveats and what we'll count as a real win.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ───────── Roadmap ───────── -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Roadmap</p>
+        <h2 class="h2">Where the product is <em>headed.</em></h2>
+        <p class="lede">From one model to the tool radiologists open for every tumour they read.</p>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl-item now"><div class="tl-date">Now</div><div class="tl-title">Soft-contour engine</div><p>The model that traces a tumour's real edge, not a sphere.</p></div>
+        <div class="tl-item "><div class="tl-date">Next</div><div class="tl-title">Scan-to-contour MVP</div><p>Upload a CT, get the tumour highlighted with its uncertainty band.</p></div>
+        <div class="tl-item "><div class="tl-date">Soon</div><div class="tl-title">Radiology pilots</div><p>First partner teams on per-scan pricing, shaping the viewer with us.</p></div>
+        <div class="tl-item "><div class="tl-date">Soon</div><div class="tl-title">Works in your viewer</div><p>DICOM and PACS integration, so contours open where radiologists already read.</p></div>
+        <div class="tl-item "><div class="tl-date">Later</div><div class="tl-title">Automatic measurements</div><p>Size, volume and vessel contact from the contour, ready for the report.</p></div>
+        <div class="tl-item "><div class="tl-date">Later</div><div class="tl-title">Follow-up tracking</div><p>Compare contours across scans to see growth or response to treatment.</p></div>
+        <div class="tl-item "><div class="tl-date">Later</div><div class="tl-title">More tumour types</div><p>From pancreas to liver, kidney and beyond.</p></div>
+        <div class="tl-item vision"><div class="tl-date">Vision</div><div class="tl-title">Clinical clearance</div><p>Validated and cleared for clinical use: the contour every radiologist trusts.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── Team teaser ───────── -->
+  <section class="section-tight">
+    <div class="wrap split" style="align-items:center">
+      <div>
+        <p class="eyebrow">Team</p>
+        <h2 class="h2 mt-s">Eight builders, <em>one edge.</em></h2>
+        <p class="lede mt-s">One team with one goal: show radiologists where a tumour really ends. Engineers and researchers building in Sydney.</p>
+        <a class="btn mt-m" href="team.html">Meet the team <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <div class="grid g4 reveal" aria-hidden="true" style="gap:14px;justify-items:center">
+        <div class="avatar">SJ</div><div class="avatar">NT</div><div class="avatar">MB</div><div class="avatar">NS</div>
+        <div class="avatar">JH</div><div class="avatar">PB</div><div class="avatar">JM</div><div class="avatar">BM</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── CTA ───────── -->
+  <section class="section">
+    <div class="wrap">
+      <div class="cta reveal">
+        <svg class="cta-rings" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#ff7a4d" stroke-linejoin="round">
+          <path d="M33 11.5c10.6-.6 19 6.8 18.4 17.2-.4 6.6-4.6 8.6-3.8 14.4.8 6-6.4 10.2-14.2 8.6C24.6 50 14.4 47 13.6 36.2 12.8 25.6 20.4 12.2 33 11.5Z" stroke-width="6" opacity=".12"/>
+          <path d="M33 11.5c10.6-.6 19 6.8 18.4 17.2-.4 6.6-4.6 8.6-3.8 14.4.8 6-6.4 10.2-14.2 8.6C24.6 50 14.4 47 13.6 36.2 12.8 25.6 20.4 12.2 33 11.5Z" stroke-width=".5" opacity=".6"/>
+        </svg>
+        <p class="eyebrow">Radiologists wanted</p>
+        <h2 class="h2 mt-s">Tell us how uncertainty <em>should</em> look.</h2>
+        <p class="lede">If you read abdominal CT, twenty minutes of your opinion on how a contour and its confidence band should be shown would shape what we build next.</p>
+        <div class="hero-actions">
+          <a class="btn btn-contour" href="contact.html">Get in touch <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn" href="research.html">Read the research</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="./"><img src="assets/brand/mark.svg" alt="" width="28" height="28"><span class="brand-name">Soft Contour <i>Lab</i></span></a>
+        <p class="disclaimer">Shape-faithful tumour delineation for CT. Built in Sydney.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="./#product">Product</a></li><li><a href="./#pricing">Pricing</a></li><li><a href="research.html">Research</a></li></ul>
+      </div>
+      <div>
+        <h4>Lab</h4>
+        <ul><li><a href="team.html">Team</a></li><li><a href="contact.html">Contact</a></li></ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul>
+      </div>
+    </div>
+    <div class="fine"><span>© <span id="year">2026</span> Soft Contour Lab</span><span>Research preview · not for clinical use</span></div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+<script src="assets/js/viewer.js" defer></script>
+</body>
+</html>
