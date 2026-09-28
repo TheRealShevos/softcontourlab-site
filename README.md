@@ -21,7 +21,8 @@ server rather than via `file://`.
 |---|---|
 | `index.html` | Home: product vision, concept viewer, pricing, evidence teaser, roadmap |
 | `research.html` | Method, Task 4 soft-boundary evidence, nulls, success bar (no dataset detail, by design) |
-| `team.html` | Eight members, one grid, one specialty line each |
+| `about.html` | About us: what the startup does, facts, founder (for reviewers and partners) |
+| `team.html` | Eight members, one grid, one specialty line each; founder LinkedIn |
 | `contact.html` | Contact: shevaan@softcontourlab.me |
 | `privacy.html`, `terms.html` | Plain-English privacy policy and terms of use (not legal advice; have them reviewed once incorporated) |
 | `assets/css/site.css` | Design system: tokens at the top |
@@ -31,7 +32,7 @@ server rather than via `file://`.
 | `assets/figures/` | Real Task 4 figures, copied from the evidence pack |
 
 The nav and footer are duplicated in each page on purpose, because there is no build step. If you
-change one, change all four (plus `404.html`).
+change one, change every page (plus `404.html`).
 
 ## Content rules (non-negotiable)
 
